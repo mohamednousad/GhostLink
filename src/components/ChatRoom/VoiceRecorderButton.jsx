@@ -11,11 +11,12 @@ export default function VoiceRecorderButton({ onSend }) {
     mediaRecorder.current = new MediaRecorder(stream);
     audioChunks.current = [];
 
-    mediaRecorder.current.ondataavailable = e => audioChunks.current.push(e.data);
-    mediaRecorder.current.onstop = async () => {
+    mediaRecorder.current.ondataavailable = (e) => audioChunks.current.push(e.data);
+    mediaRecorder.current.onstop = () => {
       const blob = new Blob(audioChunks.current, { type: 'audio/webm' });
       const url = URL.createObjectURL(blob);
-      onSend(blob, url);
+      onSend(`data:audio/webm;base64,${btoa(String.fromCharCode(...new Uint8Array(blob)))}`
+      , url);
     };
 
     mediaRecorder.current.start();
@@ -23,15 +24,15 @@ export default function VoiceRecorderButton({ onSend }) {
   };
 
   const handleStop = () => {
-    mediaRecorder.current.stop();
+    mediaRecorder.current?.stop();
     setRecording(false);
   };
 
   return (
     <button
       onClick={recording ? handleStop : handleRecord}
-      className={`p-2 rounded-xl text-white transition shadow-md ${
-        recording ? 'bg-red-600 hover:bg-red-700' : 'bg-green-600 hover:bg-green-700'
+      className={`p-3 rounded-xl text-white shadow-md transition ${
+        recording ? 'text-red-600 hover:text-red-700' : 'text-gray-600 hover:text-blue-600'
       }`}
     >
       {recording ? <FaStop className="w-4 h-4" /> : <FaMicrophone className="w-4 h-4" />}
