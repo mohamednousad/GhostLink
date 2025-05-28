@@ -30,12 +30,12 @@ export default function Home() {
         <div className="space-y-6">
           <button
             onClick={createRoom}
-            className="w-full py-3 bg-blue-700 text-white font-semibold rounded-xl hover:bg-blue-800 shadow-md transition"
+            className="w-full py-3 bg-gray-700 text-white font-semibold rounded-xl hover:bg-gray-800 shadow-md transition"
           >
             Create New Room
           </button>
 
-          <div className="flex items-center gap-3 text-blue-500">
+          <div className="flex items-center gap-3 text-gray-500">
             <div className="flex-grow border-t" />
             <span className="text-sm">or</span>
             <div className="flex-grow border-t" />
@@ -58,7 +58,7 @@ export default function Home() {
               />
               <button
                 onClick={handleJoin}
-                className="px-6 py-2 bg-blue-600 text-white rounded-xl hover:gray-green-700 transition shadow"
+                className="px-6 py-2 bg-gray-600 text-white rounded-xl hover:gray-green-700 transition shadow"
               >
                 Join
               </button>
