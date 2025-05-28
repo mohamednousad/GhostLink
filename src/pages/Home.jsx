@@ -6,8 +6,11 @@ export default function Home() {
   const [roomId, setRoomId] = useState('');
   const [error, setError] = useState('');
 
+  const generateSegment = () =>
+    Math.random().toString(36).substring(2, 5).toLowerCase();
+
   const createRoom = () => {
-    const newRoomId = crypto.randomUUID().slice(0, 8);
+    const newRoomId = `${generateSegment()}-${generateSegment()}-${generateSegment()}`;
     navigate(`/room/${newRoomId}`);
   };
 
@@ -20,24 +23,22 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-gray-100">
-      <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
-        <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">
-          Secure Chat
-        </h1>
+    <div className="min-h-screen bg-gradient-to-br from-gray-100 to-gray-300 flex items-center justify-center">
+      <div className="bg-white/70 backdrop-blur-xl p-8 rounded-3xl shadow-xl w-full max-w-md">
+        <h1 className="text-4xl font-bold text-center text-gray-800 mb-8">Ghost Link</h1>
         
-        <div className="space-y-4">
+        <div className="space-y-6">
           <button
             onClick={createRoom}
-            className="w-full py-3 px-4 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-700 transition shadow-md hover:shadow-lg"
+            className="w-full py-3 bg-blue-700 text-white font-semibold rounded-xl hover:bg-blue-800 shadow-md transition"
           >
             Create New Room
           </button>
 
-          <div className="relative flex items-center">
-            <div className="flex-grow border-t border-gray-300"></div>
-            <span className="flex-shrink mx-4 text-gray-400">or</span>
-            <div className="flex-grow border-t border-gray-300"></div>
+          <div className="flex items-center gap-3 text-blue-500">
+            <div className="flex-grow border-t" />
+            <span className="text-sm">or</span>
+            <div className="flex-grow border-t" />
           </div>
 
           <div className="space-y-2">
@@ -50,24 +51,24 @@ export default function Home() {
                   setError('');
                 }}
                 onKeyDown={(e) => e.key === 'Enter' && handleJoin()}
-                placeholder="Enter Room ID"
-                className={`flex-1 py-2 px-4 border rounded-xl focus:outline-none focus:ring-2 ${
-                  error ? 'border-red-500 focus:ring-red-200' : 'border-gray-300 focus:ring-blue-200'
+                placeholder="abc-def-ghi"
+                className={`flex-1 py-2 px-4 rounded-xl border focus:outline-none focus:ring-2 ${
+                  error ? 'border-red-500 focus:ring-red-300' : 'border-gray-300 focus:ring-gray-400'
                 }`}
               />
               <button
                 onClick={handleJoin}
-                className="py-2 px-6 bg-green-600 text-white rounded-xl hover:bg-green-700 transition shadow-md"
+                className="px-6 py-2 bg-blue-600 text-white rounded-xl hover:gray-green-700 transition shadow"
               >
                 Join
               </button>
             </div>
-            {error && <p className="text-red-500 text-sm pl-2">{error}</p>}
+            {error && <p className="text-red-500 text-sm">{error}</p>}
           </div>
         </div>
 
-        <div className="mt-8 text-center text-sm text-gray-500">
-          <p>Messages disappear when room closes</p>
+        <div className="mt-8 text-center text-sm text-gray-600">
+          <p>Developed by Mohamed Nousad</p>
         </div>
       </div>
     </div>
